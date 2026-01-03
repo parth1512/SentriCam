@@ -52,7 +52,7 @@ alpr_project/
     README.md                 # Web frontend documentation
   weights/
   requirements.txt
-  docker-compose.yml          # Redis service
+
   VEHICLE_TRACKING.md         # Vehicle tracking system documentation
   web/
     services/
@@ -74,12 +74,14 @@ pip install -r requirements.txt
 ```
 3. **Start Redis** (required for vehicle tracking):
 ```bash
-# Using Docker Compose (recommended)
-docker-compose up -d redis
+# Install and start Redis locally
+# macOS:
+brew install redis
+brew services start redis
 
-# Or install Redis locally
-# macOS: brew install redis && brew services start redis
-# Linux: sudo apt-get install redis-server && sudo systemctl start redis
+# Linux:
+sudo apt-get install redis-server
+sudo systemctl start redis
 ```
 4. Ensure PyTorch uses Apple MPS on macOS (M1/M2). YOLO will use `device="mps"` automatically in scripts.
 5. **Configure environment variables** (optional, for notifications):
@@ -160,8 +162,8 @@ The system includes a production-ready, Redis-based vehicle tracking service wit
 
 1. **Start Redis**:
    ```bash
-   docker-compose up -d redis
-   ```
+   # Start Redis locally
+   redis-server
 
 2. **Test the detection endpoint**:
    ```bash

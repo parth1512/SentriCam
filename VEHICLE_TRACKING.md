@@ -17,12 +17,14 @@ The vehicle tracking system implements a production-ready, Redis-based ALPR trac
 
 1. **Redis**: Required for state management
    ```bash
-   # Using Docker Compose (recommended)
-   docker-compose up -d redis
+   # Install Redis locally
+   # macOS:
+   brew install redis
+   brew services start redis
    
-   # Or install Redis locally
-   # macOS: brew install redis
-   # Linux: apt-get install redis-server
+   # Linux:
+   sudo apt-get install redis-server
+   sudo systemctl start redis
    ```
 
 2. **Python Dependencies**:
@@ -310,7 +312,11 @@ pytest tests/test_tracking.py --cov=services --cov-report=html
 
 1. **Start Redis**:
    ```bash
-   docker-compose up -d redis
+   # macOS
+   brew services start redis
+   
+   # Linux
+   sudo systemctl start redis
    ```
 
 2. **Start Backend**:
