@@ -2001,7 +2001,7 @@ if __name__ == '__main__':
     print("=" * 60)
     
     # Check if server is already running
-    PORT = 5002  # Changed from 5000 to avoid conflict with macOS AirPlay
+    PORT = int(os.getenv("PORT", 7860))  # Default to 7860 for Hugging Face Spaces
     try:
         import socket
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
