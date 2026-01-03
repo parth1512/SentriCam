@@ -16,7 +16,7 @@ This repository implements an academically structured ANPR pipeline inspired by 
 - **⏱️ Timestamp Recording**: Automatic timestamp and location logging for each detection
 - **🚗 Production Vehicle Tracking**: Redis-based state management with deterministic tracking logic
 - **📊 Path Recording**: Track vehicle movement between cameras with full path history
-- **🔔 Notifications**: Pluggable notification system (Telegram, WhatsApp, webhooks)
+- **🔔 Notifications**: Pluggable notification system (Telegram, Webhooks)
 - **📝 Structured Logging**: JSON event logs for all tracking events
 
 ## Project Structure

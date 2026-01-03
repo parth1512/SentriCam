@@ -8,7 +8,7 @@ The vehicle tracking system implements a production-ready, Redis-based ALPR trac
 
 - **Backend**: Flask (Python)
 - **State Store**: Redis with TTL-based timers
-- **Notifications**: Pluggable webhook system (Telegram, WhatsApp, generic webhooks)
+- **Notifications**: Pluggable webhook system (Telegram, generic webhooks)
 - **Logging**: Structured JSON logs to `logs/vehicle_events.log`
 
 ## Setup
@@ -50,10 +50,6 @@ ENTRY_CAMERA=camera1        # Default entry camera ID
 NOTIFY_WEBHOOK=https://your-webhook-url.com/notify
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
-TWILIO_ACCOUNT_SID=your_twilio_sid
-TWILIO_AUTH_TOKEN=your_twilio_token
-TWILIO_WHATSAPP_FROM=whatsapp:+1234567890
-TWILIO_WHATSAPP_TO=whatsapp:+0987654321
 ```
 
 ## API Endpoints
@@ -268,7 +264,7 @@ The system supports multiple notification backends:
 
 1. **Telegram Bot**: Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
 2. **Generic Webhook**: Set `NOTIFY_WEBHOOK`
-3. **Twilio WhatsApp**: Set Twilio credentials
+
 
 Notifications are sent for:
 - Entry events

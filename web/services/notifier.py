@@ -14,10 +14,6 @@ logger = logging.getLogger(__name__)
 NOTIFY_WEBHOOK = os.getenv("NOTIFY_WEBHOOK", "")
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
-TWILIO_WHATSAPP_FROM = os.getenv("TWILIO_WHATSAPP_FROM", "")
-TWILIO_WHATSAPP_TO = os.getenv("TWILIO_WHATSAPP_TO", "")
-TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID", "")
-TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN", "")
 
 
 class Notifier:
@@ -27,10 +23,6 @@ class Notifier:
         self.webhook_url = NOTIFY_WEBHOOK
         self.telegram_token = TELEGRAM_BOT_TOKEN
         self.telegram_chat_id = TELEGRAM_CHAT_ID
-        self.twilio_from = TWILIO_WHATSAPP_FROM
-        self.twilio_to = TWILIO_WHATSAPP_TO
-        self.twilio_sid = TWILIO_ACCOUNT_SID
-        self.twilio_token = TWILIO_AUTH_TOKEN
     
     def notify_owner(self, plate: str, message: str, event_type: str = "info"):
         """
@@ -64,13 +56,6 @@ class Notifier:
             except Exception as e:
                 logger.error(f"Failed to send webhook notification: {e}")
         
-        # Try Twilio WhatsApp
-        if self.twilio_sid and self.twilio_token and self.twilio_from and self.twilio_to:
-            try:
-                self._send_whatsapp(full_message)
-                logger.info(f"Sent WhatsApp notification for {plate}")
-            except Exception as e:
-                logger.error(f"Failed to send WhatsApp notification: {e}")
         
         # Always log
         logger.info(f"Notification: {full_message}")
@@ -123,21 +108,6 @@ class Notifier:
         )
         response.raise_for_status()
     
-    def _send_whatsapp(self, message: str):
-        """Send message via Twilio WhatsApp API."""
-        if not all([self.twilio_sid, self.twilio_token, self.twilio_from, self.twilio_to]):
-            return
-        
-        url = f"https://api.twilio.com/2010-04-01/Accounts/{self.twilio_sid}/Messages.json"
-        auth = (self.twilio_sid, self.twilio_token)
-        payload = {
-            "From": f"whatsapp:{self.twilio_from}",
-            "To": f"whatsapp:{self.twilio_to}",
-            "Body": message
-        }
-        
-        response = requests.post(url, data=payload, auth=auth, timeout=10)
-        response.raise_for_status()
 
 
 # Global notifier instance
